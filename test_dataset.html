@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Metro Station Dataset</title>
+</head>
+<body>
+    <h1>Testing Metro Station Dataset</h1>
+    <div id="station-list"></div>
+    
+    <script>
+        // Test loading the metro station dataset
+        fetch('./src/assets/metro_stations.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Loaded', data.length, 'metro stations');
+                
+                const stationListDiv = document.getElementById('station-list');
+                let html = `<p>Total stations: ${data.length}</p>`;
+                html += '<ul>';
+                
+                // Show first 10 stations as a sample
+                const sampleStations = data.slice(0, 10);
+                sampleStations.forEach(station => {
+                    html += `<li><strong>${station.name}</strong> (${station.line}) - Lat: ${station.latitude}, Lng: ${station.longitude}</li>`;
+                });
+                
+                html += '</ul>';
+                stationListDiv.innerHTML = html;
+                
+                console.log('Sample of stations:', sampleStations);
+            })
+            .catch(error => {
+                console.error('Error loading metro station data:', error);
+                document.getElementById('station-list').innerHTML = `<p>Error loading data: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>

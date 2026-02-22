@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "name": "Yelachenahalli Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.905458,
+    "longitude": 77.589096
+  },
+  {
+    "id": 2,
+    "name": "Jayanagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.934976,
+    "longitude": 77.584946
+  },
+  {
+    "id": 3,
+    "name": "Rajagopal Nagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.944785,
+    "longitude": 77.583588
+  },
+  {
+    "id": 4,
+    "name": "Mahatma Gandhi Road Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.974877,
+    "longitude": 77.591866
+  },
+  {
+    "id": 5,
+    "name": "Trinity Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.982108,
+    "longitude": 77.602623
+  },
+  {
+    "id": 6,
+    "name": "Cubbon Park Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.984508,
+    "longitude": 77.592094
+  },
+  {
+    "id": 7,
+    "name": "Chikpet Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.977585,
+    "longitude": 77.579025
+  },
+  {
+    "id": 8,
+    "name": "Krishna Rajendra Market Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.969908,
+    "longitude": 77.572586
+  },
+  {
+    "id": 9,
+    "name": "National College Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.961131,
+    "longitude": 77.565308
+  },
+  {
+    "id": 10,
+    "name": "Lakkasandra Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.951285,
+    "longitude": 77.557205
+  },
+  {
+    "id": 11,
+    "name": "South End Circle Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.941785,
+    "longitude": 77.549105
+  },
+  {
+    "id": 12,
+    "name": "Jawaharlal Nehru Centre for Advanced Scientific Research Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.931785,
+    "longitude": 77.540105
+  },
+  {
+    "id": 13,
+    "name": "Indian Institute of Science Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.921785,
+    "longitude": 77.531105
+  },
+  {
+    "id": 14,
+    "name": "Adugodi Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.911785,
+    "longitude": 77.522105
+  },
+  {
+    "id": 15,
+    "name": "Shantinagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.959908,
+    "longitude": 77.580586
+  },
+  {
+    "id": 16,
+    "name": "Sir M. Visvesvaraya Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.968908,
+    "longitude": 77.574586
+  },
+  {
+    "id": 17,
+    "name": "Bangalore City Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.980908,
+    "longitude": 77.568586
+  },
+  {
+    "id": 18,
+    "name": "Magadi Road Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.972908,
+    "longitude": 77.556586
+  },
+  {
+    "id": 19,
+    "name": "Hosahalli Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.964908,
+    "longitude": 77.544586
+  },
+  {
+    "id": 20,
+    "name": "Vijayanagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.956908,
+    "longitude": 77.532586
+  },
+  {
+    "id": 21,
+    "name": "Attiguppe Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.948908,
+    "longitude": 77.520586
+  },
+  {
+    "id": 22,
+    "name": "Deepanjali Nagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.940908,
+    "longitude": 77.508586
+  },
+  {
+    "id": 23,
+    "name": "Mysore Road Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.932908,
+    "longitude": 77.496586
+  },
+  {
+    "id": 24,
+    "name": "Kalasipalya Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.971908,
+    "longitude": 77.588586
+  },
+  {
+    "id": 25,
+    "name": "Indiranagar Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.988908,
+    "longitude": 77.625586
+  },
+  {
+    "id": 26,
+    "name": "Halasuru Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.986908,
+    "longitude": 77.615586
+  },
+  {
+    "id": 27,
+    "name": "Swami Vivekananda Road Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.980908,
+    "longitude": 77.607586
+  },
+  {
+    "id": 28,
+    "name": "Baiyyappanahalli Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.994908,
+    "longitude": 77.634586
+  },
+  {
+    "id": 29,
+    "name": "Nagasandra Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.025458,
+    "longitude": 77.589096
+  },
+  {
+    "id": 30,
+    "name": "Peenya Industry Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.015458,
+    "longitude": 77.579096
+  },
+  {
+    "id": 31,
+    "name": "Goraguntepalya Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.005458,
+    "longitude": 77.569096
+  },
+  {
+    "id": 32,
+    "name": "Yeshwantpur Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.028458,
+    "longitude": 77.538096
+  },
+  {
+    "id": 33,
+    "name": "Hesaraghatta Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.052458,
+    "longitude": 77.518096
+  },
+  {
+    "id": 34,
+    "name": "Kuvempu Nagar Metro Station",
+    "line": "Green Line",
+    "latitude": 12.962458,
+    "longitude": 77.608096
+  },
+  {
+    "id": 35,
+    "name": "Balagere Metro Station",
+    "line": "Green Line",
+    "latitude": 12.945458,
+    "longitude": 77.654096
+  },
+  {
+    "id": 36,
+    "name": "Rajajinagar Metro Station",
+    "line": "Green Line",
+    "latitude": 12.999458,
+    "longitude": 77.555096
+  },
+  {
+    "id": 37,
+    "name": "Majestic Metro Station",
+    "line": "Green Line",
+    "latitude": 12.977458,
+    "longitude": 77.572096
+  },
+  {
+    "id": 38,
+    "name": "Chamarajpet Metro Station",
+    "line": "Green Line",
+    "latitude": 12.967458,
+    "longitude": 77.583096
+  },
+  {
+    "id": 39,
+    "name": "Dasarahalli Metro Station",
+    "line": "Green Line",
+    "latitude": 12.957458,
+    "longitude": 77.594096
+  },
+  {
+    "id": 40,
+    "name": "Kadugodi Metro Station",
+    "line": "Green Line",
+    "latitude": 13.011458,
+    "longitude": 77.685096
+  },
+  {
+    "id": 41,
+    "name": "Whitefield Metro Station",
+    "line": "Green Line",
+    "latitude": 12.984458,
+    "longitude": 77.731096
+  },
+  {
+    "id": 42,
+    "name": "Kengeri Metro Station",
+    "line": "Green Line",
+    "latitude": 12.898458,
+    "longitude": 77.535096
+  },
+  {
+    "id": 43,
+    "name": "Silk Board Metro Station",
+    "line": "Green Line",
+    "latitude": 12.887458,
+    "longitude": 77.636096
+  },
+  {
+    "id": 44,
+    "name": "Jayaprakash Narayan Nagar Metro Station",
+    "line": "Green Line",
+    "latitude": 12.887458,
+    "longitude": 77.656096
+  },
+  {
+    "id": 45,
+    "name": "Garudacharpalya Metro Station",
+    "line": "Green Line",
+    "latitude": 12.887458,
+    "longitude": 77.676096
+  },
+  {
+    "id": 46,
+    "name": "Hoodi Metro Station",
+    "line": "Purple Line",
+    "latitude": 12.996458,
+    "longitude": 77.674096
+  },
+  {
+    "id": 47,
+    "name": "Seetharampalya Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.002458,
+    "longitude": 77.684096
+  },
+  {
+    "id": 48,
+    "name": "Kadugodi Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.011458,
+    "longitude": 77.685096
+  },
+  {
+    "id": 49,
+    "name": "Whitefield (Kadugodi) Metro Station",
+    "line": "Purple Line",
+    "latitude": 13.021458,
+    "longitude": 77.695096
+  },
+  {
+    "id": 50,
+    "name": "Kengeri Satellite Town Metro Station",
+    "line": "Green Line",
+    "latitude": 12.891458,
+    "longitude": 77.515096
+  }
+]

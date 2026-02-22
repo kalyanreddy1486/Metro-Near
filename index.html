@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroNear - Find the Best Metro Station</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MetroNear</h1>
+            <p>Find the best metro station for your destination</p>
+        </header>
+
+        <main>
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <label for="destination-input">Enter your destination in Bangalore:</label>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="destination-input" 
+                            placeholder="e.g., Electronic City, Indiranagar, Koramangala..."
+                            autocomplete="off"
+                            aria-describedby="search-help"
+                        >
+                        <button id="find-station-btn" aria-label="Find best metro station">Find Best Station</button>
+                    </div>
+                    <small id="search-help" class="helper-text">
+                        Start typing to see suggestions, then select your destination and click the button
+                    </small>
+                </div>
+            </section>
+
+            <!-- Map Section -->
+            <section class="map-section">
+                <div id="map"></div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" aria-live="polite" aria-atomic="true">
+                <h2>Recommended Stations</h2>
+                <div id="results-container" role="region" aria-label="Metro station recommendations">
+                    <div class="placeholder-message">
+                        <p>Your recommended metro stations will appear here after entering a destination.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© MetroNear - Educational Project</p>
+            <p class="attribution">
+                Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors | 
+                Routing by <a href="https://openrouteservice.org/" target="_blank" rel="noopener">OpenRouteService</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
