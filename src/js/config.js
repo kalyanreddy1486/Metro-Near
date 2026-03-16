@@ -6,7 +6,7 @@ const GOOGLE_MAPS_API_KEY =
 export const API_CONFIG = {
     GOOGLE_MAPS_API_KEY,
     ROUTING_BACKEND_BASE_URL: isProd
-        ? 'https://metro-near-backend.onrender.com'
+        ? 'https://metro-near-production.up.railway.app'
         : 'http://localhost:4000'
 };
 
