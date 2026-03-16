@@ -1,5 +1,5 @@
 // API Utility Functions for MetroNear
-import { API_CONFIG, isOpenRouteServiceConfigured } from './config.js';
+import { API_CONFIG } from './config.js';
 
 // Cache for route calculations to prevent repeated requests
 const routeCache = new Map();
@@ -15,29 +15,6 @@ function cleanupCache() {
         }
     }
 }
-
-// Coordinate normalization utilities
-export const CoordinateUtils = {
-    // Ensure coordinates are in [longitude, latitude] format (GeoJSON standard)
-    normalizeToGeoJSON(lat, lng) {
-        return [parseFloat(lng), parseFloat(lat)];
-    },
-    
-    // Ensure coordinates are in [latitude, longitude] format (standard for most APIs)
-    normalizeToStandard(lat, lng) {
-        return [parseFloat(lat), parseFloat(lng)];
-    },
-    
-    // Convert from GeoJSON [lng, lat] to standard [lat, lng]
-    geoJSONToStandard(geoJSONCoords) {
-        return [geoJSONCoords[1], geoJSONCoords[0]];
-    },
-    
-    // Convert from standard [lat, lng] to GeoJSON [lng, lat]
-    standardToGeoJSON(standardCoords) {
-        return [standardCoords[1], standardCoords[0]];
-    }
-};
 
 // Haversine distance calculation for nearby station filtering
 export const DistanceUtils = {
@@ -76,7 +53,7 @@ export const DistanceUtils = {
             .map(station => {
                 const distance = this.calculateHaversineDistance(
                     destLat, destLng, 
-                    station.latitude, station.longitude
+                    station.lat, station.lng
                 );
                 return {
                     ...station,
@@ -95,149 +72,113 @@ export const DistanceUtils = {
     }
 };
 
-// OpenRouteService API handler
+// Routing API handler (Google Distance Matrix via backend + heuristics fallback)
 export const RoutingAPI = {
-    // Calculate route using OpenRouteService
-    async calculateRoute(startCoords, endCoords, profile = 'foot-walking') {
-        // Validate coordinates
-        if (!DistanceUtils.validateCoordinates(startCoords[0], startCoords[1]) ||
-            !DistanceUtils.validateCoordinates(endCoords[0], endCoords[1])) {
-            throw new Error('Invalid coordinates provided');
-        }
-        
-        // Check if API is configured
-        if (!isOpenRouteServiceConfigured()) {
-            throw new Error('OpenRouteService API not configured');
-        }
-        
-        // Create cache key
-        const cacheKey = `${startCoords.join(',')}-${endCoords.join(',')}-${profile}`;
-        
-        // Check cache first
+    // Batch calculate routes by calling our backend (Google Distance Matrix)
+    async calculateBatchRoutesViaBackend(destinationCoords, stations, mode = 'driving') {
+        console.debug(`Calling backend for ${stations.length} routes`);
+
+        const cacheKey = `backend:${destinationCoords.join(',')}:${mode}:${stations
+            .map(s => `${s.lat},${s.lng}`)
+            .join('|')}`;
+
         if (this.isCached(cacheKey)) {
-            const cachedResult = this.getFromCache(cacheKey);
-            console.debug(`Using cached route for ${cacheKey}`);
-            return cachedResult;
+            console.debug('Using cached backend routing result');
+            return this.getFromCache(cacheKey);
         }
-        
-        try {
-            console.debug(`Calculating route from [${startCoords.join(',')}] to [${endCoords.join(',')}]`);
-            
-            const url = `${API_CONFIG.OPENROUTESERVICE_BASE_URL}/directions/${profile}`;
-            
-            const requestBody = {
-                coordinates: [
-                    CoordinateUtils.normalizeToGeoJSON(startCoords[0], startCoords[1]),
-                    CoordinateUtils.normalizeToGeoJSON(endCoords[0], endCoords[1])
-                ],
-                format: 'json',
-                units: 'km',
-                instructions: false // Reduce response size
-            };
-            
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Authorization': API_CONFIG.OPENROUTESERVICE_TOKEN,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error(`OpenRouteService API error ${response.status}: ${errorText}`);
-                
-                if (response.status === 429) {
-                    throw new Error('Rate limit exceeded - too many requests');
-                } else if (response.status === 401) {
-                    throw new Error('Invalid API key for OpenRouteService');
-                } else if (response.status === 400) {
-                    throw new Error(`Invalid request: ${errorText}`);
-                }
-                throw new Error(`OpenRouteService API error: ${response.status} ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            
-            // Process response to extract distance and duration
-            const route = this.processRouteResponse(data);
-            
-            // Cache the result
-            this.cacheResult(cacheKey, route);
-            
-            console.debug(`Route calculated successfully: ${route.distance}km in ${Math.round(route.duration/60)} minutes`);
-            return route;
-            
-        } catch (error) {
-            console.error('Error calling OpenRouteService API:', error);
-            throw error;
-        }
-    },
-    
-    // Batch calculate routes for multiple stations with improved error handling
-    async calculateBatchRoutes(destinationCoords, stations, profile = 'foot-walking') {
-        console.debug(`Calculating batch routes for ${stations.length} stations`);
-        
-        const promises = stations.map(station => 
-            this.calculateRoute(
-                [destinationCoords[0], destinationCoords[1]], 
-                [station.latitude, station.longitude], 
-                profile
-            ).catch(error => {
-                // Fallback to haversine distance calculation
-                console.warn(`Route calculation failed for ${station.name}:`, error.message);
-                const distance = DistanceUtils.calculateHaversineDistance(
-                    destinationCoords[0], destinationCoords[1],
-                    station.latitude, station.longitude
-                );
-                return {
-                    distance: distance,
-                    duration: distance * 12 * 60, // Estimate: 12 minutes per km for walking (converted to seconds)
-                    isFallback: true,
-                    error: error.message,
-                    stationName: station.name
-                };
-            })
-        );
-        
-        const results = await Promise.allSettled(promises);
-        
-        // Log summary of results
-        const successful = results.filter(r => r.status === 'fulfilled').length;
-        const failed = results.filter(r => r.status === 'rejected').length;
-        const fallback = results.filter(r => r.status === 'fulfilled' && r.value?.isFallback).length;
-        
-        console.debug(`Batch route calculation complete: ${successful} successful, ${failed} failed, ${fallback} fallback`);
-        
-        return results;
-    },
-    
-    // Process OpenRouteService response with validation
-    processRouteResponse(data) {
-        if (!data.routes || data.routes.length === 0) {
-            throw new Error('No routes found in response');
-        }
-        
-        const route = data.routes[0];
-        
-        if (!route.summary) {
-            throw new Error('Invalid route response format');
-        }
-        
-        // Validate and normalize values
-        const distance = parseFloat(route.summary.distance) || 0;
-        const duration = parseFloat(route.summary.duration) || 0;
-        
-        if (distance <= 0 || duration <= 0) {
-            throw new Error('Invalid route data: distance or duration is zero/negative');
-        }
-        
-        return {
-            distance: Math.round(distance * 100) / 100, // Round to 2 decimal places
-            duration: Math.round(duration), // Round to nearest second
-            isFallback: false
+
+        const body = {
+            origin: { lat: destinationCoords[0], lng: destinationCoords[1] },
+            destinations: stations.map(s => ({ lat: s.lat, lng: s.lng })),
+            mode
         };
+
+        const response = await fetch(`${API_CONFIG.ROUTING_BACKEND_BASE_URL}/routes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error('Backend routing HTTP error', response.status, text);
+            throw new Error(`Routing backend failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.results || !Array.isArray(data.results) || data.results.length !== stations.length) {
+            console.error('Unexpected backend routing response shape', data);
+            throw new Error('Routing backend returned invalid results');
+        }
+
+        const results = data.results.map((r, index) => {
+            if (r.status === 'OK' && typeof r.distanceKm === 'number' && typeof r.durationSec === 'number') {
+                return {
+                    status: 'fulfilled',
+                    value: {
+                        distance: Math.round(r.distanceKm * 100) / 100,
+                        duration: Math.round(r.durationSec),
+                        isFallback: false
+                    },
+                    stationName: stations[index].name
+                };
+            }
+
+            // Fallback for this element using heuristics
+            const straightLineDistance = DistanceUtils.calculateHaversineDistance(
+                destinationCoords[0], destinationCoords[1],
+                stations[index].lat, stations[index].lng
+            );
+
+            let roadFactor;
+            if (straightLineDistance < 1) {
+                roadFactor = 1.5;
+            } else if (straightLineDistance < 3) {
+                roadFactor = 1.4;
+            } else if (straightLineDistance < 5) {
+                roadFactor = 1.35;
+            } else if (straightLineDistance < 10) {
+                roadFactor = 1.3;
+            } else if (straightLineDistance < 20) {
+                roadFactor = 1.25;
+            } else {
+                roadFactor = 1.2;
+            }
+
+            const estimatedRoadDistance = straightLineDistance * roadFactor;
+
+            let avgSpeed;
+            if (estimatedRoadDistance < 2) {
+                avgSpeed = 18;
+            } else if (estimatedRoadDistance < 5) {
+                avgSpeed = 22;
+            } else if (estimatedRoadDistance < 10) {
+                avgSpeed = 26;
+            } else if (estimatedRoadDistance < 20) {
+                avgSpeed = 30;
+            } else {
+                avgSpeed = 35;
+            }
+
+            let travelTimeMinutes = (estimatedRoadDistance / avgSpeed) * 60;
+            travelTimeMinutes += estimatedRoadDistance * 0.5;
+            travelTimeMinutes = Math.max(2, travelTimeMinutes);
+
+            return {
+                status: 'fulfilled',
+                value: {
+                    distance: Math.round(estimatedRoadDistance * 100) / 100,
+                    duration: Math.round(travelTimeMinutes * 60),
+                    isFallback: true
+                },
+                stationName: stations[index].name
+            };
+        });
+
+        this.cacheResult(cacheKey, results);
+        return results;
     },
     
     // Cache management with size limiting

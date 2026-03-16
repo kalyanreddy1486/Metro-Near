@@ -110,3 +110,6 @@ dist
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local API keys (do not commit real secrets)
+src/js/googleConfig.js

@@ -1,0 +1,20 @@
+{
+  "name": "metro-app",
+  "version": "1.0.0",
+  "description": "MetroNear is a web application that helps users find the best metro station to reach their destination in Bangalore. The application automatically recommends the most convenient metro station based on real road travel time and distance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:backend": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}
