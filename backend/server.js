@@ -12,7 +12,13 @@ if (!GOOGLE_KEY) {
   console.warn('Warning: GOOGLE_MAPS_API_KEY_BACKEND (or GOOGLE_MAPS_API_KEY) is not set. Routing API will fail until a key is configured.');
 }
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://metro-near-kkr.vercel.app',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500'
+  ]
+}));
 app.use(express.json());
 
 app.post('/routes', async (req, res) => {
