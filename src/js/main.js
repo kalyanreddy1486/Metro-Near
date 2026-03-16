@@ -13,7 +13,7 @@ let destinationMarker = null;
 // Load Bangalore metro stations
 async function loadMetroStations() {
     try {
-        const response = await fetch('src/data/bangalore.json');
+        const response = await fetch('src/data/bangalore3.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         metroStations = await response.json();
         console.log(`Loaded ${metroStations.length} Bangalore stations`);

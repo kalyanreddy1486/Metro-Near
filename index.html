@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetroNear - Find the Best Metro Station in India</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -16,39 +20,53 @@
         </header>
 
         <main>
-            <!-- Search Section -->
-            <section class="search-section">
-                <div class="search-container">
-                    <label for="destination-input">Enter your destination in Bangalore:</label>
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            id="destination-input" 
-                            placeholder="e.g., Electronic City, Indiranagar, Koramangala, or 12.9716, 77.5946"
-                            autocomplete="off"
-                            aria-describedby="search-help"
-                        >
-                        <button id="find-station-btn" aria-label="Find best metro station">Find Best Station</button>
+            <div class="sidebar-panel">
+                <!-- Search Section -->
+                <section class="search-section">
+                    <div class="search-container">
+                        <label for="destination-input">Enter your destination in Bangalore:</label>
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                id="destination-input" 
+                                placeholder="e.g., Electronic City, Indiranagar, Koramangala..."
+                                autocomplete="off"
+                                aria-describedby="search-help"
+                            >
+                            <button id="find-station-btn" aria-label="Find best metro station">Find Best Station</button>
+                        </div>
+                        <small id="search-help" class="helper-text">
+                            Start typing to see suggestions, or enter coordinates (lat, lng) directly
+                        </small>
                     </div>
-                    <small id="search-help" class="helper-text">
-                        Start typing to see suggestions, or enter coordinates (lat, lng) directly
-                    </small>
-                </div>
-            </section>
+                </section>
+
+                <!-- Results Section -->
+                <section class="results-section" aria-live="polite" aria-atomic="true">
+                    <h2>Recommended Stations</h2>
+                    <div id="results-container" role="region" aria-label="Metro station recommendations">
+                        <div class="placeholder-message">
+                            <!-- Ghost Cards state -->
+                            <div class="ghost-card">
+                                <div class="ghost-title"></div>
+                                <div class="ghost-chips"><div class="ghost-chip"></div><div class="ghost-chip" style="width: 60px;"></div></div>
+                            </div>
+                            <div class="ghost-card">
+                                <div class="ghost-title" style="width:60%"></div>
+                                <div class="ghost-chips"><div class="ghost-chip" style="width: 75px;"></div><div class="ghost-chip"></div></div>
+                            </div>
+                            <div class="ghost-card">
+                                <div class="ghost-title" style="width:40%"></div>
+                                <div class="ghost-chips"><div class="ghost-chip"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             <!-- Map Section -->
             <section class="map-section">
                 <div id="map"></div>
-            </section>
-
-            <!-- Results Section -->
-            <section class="results-section" aria-live="polite" aria-atomic="true">
-                <h2>Recommended Stations</h2>
-                <div id="results-container" role="region" aria-label="Metro station recommendations">
-                    <div class="placeholder-message">
-                        <p>Your recommended metro stations will appear here after entering a destination.</p>
-                    </div>
-                </div>
             </section>
         </main>
 
