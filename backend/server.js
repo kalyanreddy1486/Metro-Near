@@ -15,6 +15,7 @@ if (!GOOGLE_KEY) {
 app.use(cors({
   origin: [
     'https://metro-near-kkr.vercel.app',
+    'http://localhost:3000',
     'http://localhost:5500',
     'http://127.0.0.1:5500'
   ]
